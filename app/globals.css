@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* base */
+    --radius-xs: 6px;
+    --radius-sm: 10px;
+    --radius-md: 14px;
+
+    --shadow-1: 0 1px 2px rgba(0,0,0,.05);
+    --shadow-2: 0 2px 8px rgba(0,0,0,.06);
+    --shadow-3: 0 8px 24px rgba(0,0,0,.08);
+
+    /* typography */
+    --font-sans: ui-sans-serif, Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+    --font-mono: ui-monospace, "IBM Plex Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+    /* light theme */
+    --bg: 0 0% 100%;
+    --bg-elev: 0 0% 98%;
+    --surface: 220 14% 96%;
+    --border: 220 10% 86%;
+    --muted: 220 8% 43%;
+    --text: 220 13% 15%;
+
+    --primary: 221 83% 53%;   /* blue */
+    --primary-fg: 0 0% 100%;
+
+    --info: 206 92% 50%;       /* azure */
+    --success: 160 84% 34%;    /* green */
+    --warning: 38 92% 50%;     /* amber */
+    --danger: 0 72% 51%;       /* red */
+
+    /* components */
+    --chip-bg: 220 16% 95%;
+    --chip-fg: 220 16% 25%;
+    --kbd-bg: 220 14% 94%;
+    --kbd-fg: 220 10% 30%;
+    --focus: 221 83% 53%;
+
+    /* shadcn compatibility */
+    --background: var(--bg);
+    --foreground: var(--text);
+    --card: var(--bg-elev);
+    --card-foreground: var(--text);
+    --popover: var(--bg-elev);
+    --popover-foreground: var(--text);
+    --primary-foreground: var(--primary-fg);
+    --secondary: var(--surface);
+    --secondary-foreground: var(--text);
+    --muted-foreground: var(--muted);
+    --accent: var(--surface);
+    --accent-foreground: var(--text);
+    --destructive: var(--danger);
+    --destructive-foreground: 0 0% 98%;
+    --input: var(--border);
+    --ring: var(--focus);
+    --radius: var(--radius-sm);
+  }
+
+  .dark {
+    --bg: 220 14% 8%;
+    --bg-elev: 220 14% 12%;
+    --surface: 220 14% 16%;
+    --border: 220 10% 26%;
+    --muted: 220 8% 66%;
+    --text: 0 0% 98%;
+
+    --primary: 221 83% 60%;
+    --primary-fg: 0 0% 100%;
+
+    --chip-bg: 220 14% 20%;
+    --chip-fg: 0 0% 96%;
+    --kbd-bg: 220 14% 22%;
+    --kbd-fg: 0 0% 92%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    color: hsl(var(--text));
+    background: hsl(var(--bg));
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  .card {
+    background: hsl(var(--bg-elev));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-1);
+  }
+
+  .input, .select, .textarea {
+    background: hsl(var(--bg));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-xs);
+  }
+
+  .input:focus, .select:focus, .textarea:focus, .btn:focus {
+    outline: 2px solid hsl(var(--focus));
+    outline-offset: 2px;
+  }
+
+  .badge {
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-size: 12px;
+    line-height: 18px;
+    background: hsl(var(--chip-bg));
+    color: hsl(var(--chip-fg));
+  }
+
+  .badge--success {
+    background: color-mix(in oklab, hsl(var(--success)) 15%, transparent);
+    color: hsl(var(--success));
+  }
+
+  .badge--warning {
+    background: color-mix(in oklab, hsl(var(--warning)) 15%, transparent);
+    color: hsl(var(--warning));
+  }
+
+  .badge--danger {
+    background: color-mix(in oklab, hsl(var(--danger)) 18%, transparent);
+    color: hsl(var(--danger));
+  }
+
+  .kbd {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: hsl(var(--kbd-bg));
+    color: hsl(var(--kbd-fg));
+    border: 1px solid hsl(var(--border));
+  }
+
+  mark {
+    background: color-mix(in oklab, hsl(var(--primary)) 18%, transparent);
+    padding: 0 .15em;
+    border-radius: 4px;
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+    animation: shimmer 1.3s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0 }
+    100% { background-position: 200% 0 }
+  }
+
+  /* Markdown prose styles */
+  .prose pre {
+    background: hsl(var(--surface));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-sm);
+    padding: 12px;
+  }
+
+  .prose table tr:nth-child(even) {
+    background: color-mix(in oklab, hsl(var(--surface)) 40%, transparent);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Motion */
+* {
+  transition: color .18s, background-color .18s, border-color .18s, box-shadow .18s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
